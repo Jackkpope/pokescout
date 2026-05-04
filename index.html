@@ -161,22 +161,15 @@
     .regions-grid::-webkit-scrollbar { height: 4px; }
     @media (max-width: 700px) {
       .regions-marquee-outer {
-        overflow: hidden;
         -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
         mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
       }
       .regions-grid {
         display: flex; gap: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch;
-        width: max-content; margin-top: 0; padding-bottom: 0; scrollbar-width: none;
-        animation: marquee-scroll 18s linear infinite;
+        margin-top: 0; padding-bottom: 0; scrollbar-width: none;
       }
       .regions-grid::-webkit-scrollbar { display: none; }
-      .regions-grid.paused { animation-play-state: paused; }
       .region-card { min-width: 70vw; flex-shrink: 0; }
-      @keyframes marquee-scroll {
-        0%   { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
     }
     .region-card {
       flex: 1; min-width: 130px; background: var(--dark2); border: 1px solid var(--card-border);
@@ -891,37 +884,66 @@
 </script>
 
 <script>
-  // Marquee: duplicate cards on mobile so the loop is seamless
   (function() {
+    var grid = document.getElementById('regionsGrid');
+    if (!grid) return;
+
+    function isMobile() { return window.innerWidth <= 700; }
+
+    // Duplicate cards for seamless loop
     function setup() {
-      var grid = document.getElementById('regionsGrid');
-      if (!grid) return;
-      var clones = grid.querySelectorAll('.region-card-clone');
-      clones.forEach(function(c) { c.parentNode.removeChild(c); });
-
-      if (window.innerWidth <= 700) {
-        var cards = grid.querySelectorAll('.region-card');
-        cards.forEach(function(card) {
-          var clone = card.cloneNode(true);
-          clone.classList.add('region-card-clone');
-          clone.setAttribute('aria-hidden', 'true');
-          grid.appendChild(clone);
-        });
-
-        var resumeTimer;
-        grid.addEventListener('touchstart', function() {
-          clearTimeout(resumeTimer);
-          grid.classList.add('paused');
-        }, { passive: true });
-        grid.addEventListener('touchend', function() {
-          resumeTimer = setTimeout(function() {
-            grid.classList.remove('paused');
-          }, 2000);
-        }, { passive: true });
-      }
+      grid.querySelectorAll('.region-card-clone').forEach(function(c) { c.remove(); });
+      if (!isMobile()) return;
+      grid.querySelectorAll('.region-card').forEach(function(card) {
+        var clone = card.cloneNode(true);
+        clone.classList.add('region-card-clone');
+        clone.setAttribute('aria-hidden', 'true');
+        grid.appendChild(clone);
+      });
+      grid.scrollLeft = 0;
+      startAuto();
     }
+
+    var raf, speed = 0.5, isTouching = false, resumeTimer;
+
+    function autoScroll() {
+      if (!isTouching) {
+        grid.scrollLeft += speed;
+        // When we've scrolled halfway (the cloned set starts), reset to 0
+        var half = grid.scrollWidth / 2;
+        if (grid.scrollLeft >= half) {
+          grid.scrollLeft -= half;
+        }
+      }
+      raf = requestAnimationFrame(autoScroll);
+    }
+
+    function startAuto() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(autoScroll);
+    }
+
+    function stopAuto() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = null;
+    }
+
+    grid.addEventListener('touchstart', function() {
+      isTouching = true;
+      clearTimeout(resumeTimer);
+    }, { passive: true });
+
+    grid.addEventListener('touchend', function() {
+      resumeTimer = setTimeout(function() {
+        isTouching = false;
+      }, 1500);
+    }, { passive: true });
+
     setup();
-    window.addEventListener('resize', setup);
+    window.addEventListener('resize', function() {
+      stopAuto();
+      setup();
+    });
   })();
 </script>
 </body>
