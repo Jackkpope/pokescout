@@ -159,6 +159,25 @@
     /* REGIONS */
     .regions-grid { display: flex; gap: 14px; margin-top: 48px; overflow-x: auto; padding-bottom: 4px; }
     .regions-grid::-webkit-scrollbar { height: 4px; }
+    @media (max-width: 700px) {
+      .regions-marquee-outer {
+        overflow: hidden;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+        mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      }
+      .regions-grid {
+        display: flex; gap: 14px; overflow: visible;
+        width: max-content; margin-top: 0; padding-bottom: 0;
+        animation: marquee-scroll 18s linear infinite;
+      }
+      .regions-grid::-webkit-scrollbar { display: none; }
+      .regions-grid:hover { animation-play-state: paused; }
+      .region-card { min-width: 70vw; flex-shrink: 0; }
+      @keyframes marquee-scroll {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+    }
     .region-card {
       flex: 1; min-width: 130px; background: var(--dark2); border: 1px solid var(--card-border);
       border-radius: 16px; position: relative; transition: border-color 0.2s;
@@ -435,7 +454,8 @@
   <p class="section-label">Coverage</p>
   <div class="section-title">GLOBAL REACH.<br><span>LOCAL PRICES.</span></div>
   <p class="section-sub">PokeScout scans five regions independently — every alert is priced in your local currency, relevant to your local market.</p>
-  <div class="regions-grid">
+  <div class="regions-marquee-outer" id="regionMarqueeOuter">
+  <div class="regions-grid" id="regionsGrid">
 
     <div class="region-card">
       <!-- US Flag: red/white stripes + blue canton -->
@@ -613,11 +633,11 @@
     </div>
 
   </div>
+  </div>
 </div>
 
 <div class="section-divider"><hr></div>
 
-<!-- PRICING -->
 <div class="pricing-wrap" id="pricing">
   <div class="pricing-inner">
     <p class="section-label">Pricing</p>
@@ -870,5 +890,29 @@
   });
 </script>
 
+<script>
+  // Marquee: duplicate cards on mobile so the loop is seamless
+  (function() {
+    function setup() {
+      var grid = document.getElementById('regionsGrid');
+      if (!grid) return;
+      // Remove any previously added clones
+      var clones = grid.querySelectorAll('.region-card-clone');
+      clones.forEach(function(c) { c.parentNode.removeChild(c); });
+
+      if (window.innerWidth <= 700) {
+        var cards = grid.querySelectorAll('.region-card');
+        cards.forEach(function(card) {
+          var clone = card.cloneNode(true);
+          clone.classList.add('region-card-clone');
+          clone.setAttribute('aria-hidden', 'true');
+          grid.appendChild(clone);
+        });
+      }
+    }
+    setup();
+    window.addEventListener('resize', setup);
+  })();
+</script>
 </body>
 </html>
