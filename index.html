@@ -158,12 +158,31 @@
     /* REGIONS */
     .regions-grid { display: flex; gap: 14px; margin-top: 48px; overflow-x: auto; padding-bottom: 4px; }
     .regions-grid::-webkit-scrollbar { height: 4px; }
-    .region-card { flex: 1; min-width: 150px; background: var(--dark2); border: 1px solid var(--card-border); border-radius: 16px; padding: 20px 16px 16px; position: relative; overflow: hidden; transition: all 0.2s; display: flex; flex-direction: column; gap: 8px; }
-    .region-card:hover { border-color: rgba(255,208,0,0.45); transform: translateY(-2px); }
-    .region-card:hover
-    .region-card-flag { font-size: 24px; line-height: 1; position: relative; z-index: 1; }
-    .region-card-name { font-size: 13px; font-weight: 700; color: #fff; position: relative; z-index: 1; }
-    .region-card-pill { display: inline-flex; align-items: center; width: fit-content; background: rgba(255,208,0,0.12); border: 1px solid rgba(255,208,0,0.3); color: var(--yellow); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; position: relative; z-index: 1; }
+    .region-card {
+      flex: 1; min-width: 130px; background: var(--dark2); border: 1px solid var(--card-border);
+      border-radius: 16px; position: relative; transition: border-color 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .region-card:hover { border-color: rgba(255,208,0,0.45); }
+    .region-card-flag-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      border-radius: 16px; overflow: hidden;
+    }
+    .region-card-flag-bg svg {
+      width: 100%; height: 100%; display: block;
+      opacity: 0.15; transition: opacity 0.2s;
+      -webkit-mask-image: linear-gradient(to top, transparent 0%, black 100%);
+      mask-image: linear-gradient(to top, transparent 0%, black 100%);
+    }
+    .region-card:hover .region-card-flag-bg svg { opacity: 0.22; }
+    .region-card-content {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 16px 14px 14px; flex: 1;
+    }
+    .region-card-flag { font-size: 22px; line-height: 1; }
+    .region-card-name { font-size: 12px; font-weight: 700; color: #fff; }
+    .region-card-pill { display: inline-flex; align-items: center; width: fit-content; background: rgba(255,208,0,0.12); border: 1px solid rgba(255,208,0,0.3); color: var(--yellow); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
 
     /* PRICING */
     .pricing-wrap { padding: 90px 0 90px; }
@@ -330,26 +349,26 @@
           <div class="deal-item active">
             <div class="deal-name">Blastoise Holo — Base Set 2/102 ★</div>
             <div class="deal-prices">
-              <span class="deal-ebay">$145</span>
-              <span class="deal-market">Market $240</span>
+              <span class="deal-ebay">$889</span>
+              <span class="deal-market">Market $1,048</span>
             </div>
-            <span class="deal-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 7L5 3l3 4" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>40% below market</span>
+            <span class="deal-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 7L5 3l3 4" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>15.2% below market</span>
           </div>
           <div class="deal-item">
             <div class="deal-name">Sun &amp; Moon Team Up Elite Trainer Box</div>
             <div class="deal-prices">
-              <span class="deal-ebay">$54</span>
-              <span class="deal-market">Market $85</span>
+              <span class="deal-ebay">$2,567</span>
+              <span class="deal-market">Market $2,933</span>
             </div>
-            <span class="deal-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 7L5 3l3 4" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>36% below market</span>
+            <span class="deal-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 7L5 3l3 4" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>12.5% below market</span>
           </div>
           <div class="deal-item">
             <div class="deal-name">Pikachu Grey Felt Hat PSA 10 — Van Gogh</div>
             <div class="deal-prices">
-              <span class="deal-ebay">$220</span>
-              <span class="deal-market">Market $370</span>
+              <span class="deal-ebay">$2,430</span>
+              <span class="deal-market">Market $2,800</span>
             </div>
-            <span class="deal-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 7L5 3l3 4" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>41% below market</span>
+            <span class="deal-badge"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 7L5 3l3 4" stroke="#4ade80" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>13.2% below market</span>
           </div>
         </div>
         <div class="card-3d-footer">
@@ -416,35 +435,185 @@
   <div class="section-title">GLOBAL REACH.<br><span>LOCAL PRICES.</span></div>
   <p class="section-sub">PokeScout scans five regions independently — every alert is priced in your local currency, relevant to your local market.</p>
   <div class="regions-grid">
+
     <div class="region-card">
-      <div class="region-card-flag">🇺🇸</div>
-      <div class="region-card-name">United States</div>
-      <span class="region-card-pill">USD</span>
+      <!-- US Flag: red/white stripes + blue canton -->
+      <div class="region-card-flag-bg"><svg viewBox="0 0 190 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="190" height="100" fill="#B22234"/>
+        <rect y="7.7" width="190" height="7.7" fill="#fff"/>
+        <rect y="15.4" width="190" height="7.7" fill="#B22234"/>
+        <rect y="23.1" width="190" height="7.7" fill="#fff"/>
+        <rect y="30.8" width="190" height="7.7" fill="#B22234"/>
+        <rect y="38.5" width="190" height="7.7" fill="#fff"/>
+        <rect y="46.2" width="190" height="7.7" fill="#B22234"/>
+        <rect y="53.9" width="190" height="7.7" fill="#fff"/>
+        <rect y="61.6" width="190" height="7.7" fill="#B22234"/>
+        <rect y="69.3" width="190" height="7.7" fill="#fff"/>
+        <rect y="77" width="190" height="7.7" fill="#B22234"/>
+        <rect y="84.7" width="190" height="7.7" fill="#fff"/>
+        <rect y="92.4" width="190" height="7.6" fill="#B22234"/>
+        <rect width="76" height="53.9" fill="#3C3B6E"/>
+        <!-- 50 stars: 6 rows of 5, 4 rows of 4, offset grid -->
+        <g fill="#fff" font-size="5">
+          <!-- Row 1 (5 stars) -->
+          <polygon points="7,5 7.9,7.7 10.7,7.7 8.5,9.4 9.3,12.1 7,10.5 4.7,12.1 5.5,9.4 3.3,7.7 6.1,7.7"/>
+          <polygon points="19,5 19.9,7.7 22.7,7.7 20.5,9.4 21.3,12.1 19,10.5 16.7,12.1 17.5,9.4 15.3,7.7 18.1,7.7"/>
+          <polygon points="31,5 31.9,7.7 34.7,7.7 32.5,9.4 33.3,12.1 31,10.5 28.7,12.1 29.5,9.4 27.3,7.7 30.1,7.7"/>
+          <polygon points="43,5 43.9,7.7 46.7,7.7 44.5,9.4 45.3,12.1 43,10.5 40.7,12.1 41.5,9.4 39.3,7.7 42.1,7.7"/>
+          <polygon points="55,5 55.9,7.7 58.7,7.7 56.5,9.4 57.3,12.1 55,10.5 52.7,12.1 53.5,9.4 51.3,7.7 54.1,7.7"/>
+          <polygon points="67,5 67.9,7.7 70.7,7.7 68.5,9.4 69.3,12.1 67,10.5 64.7,12.1 65.5,9.4 63.3,7.7 66.1,7.7"/>
+          <!-- Row 2 (4 stars, offset) -->
+          <polygon points="13,11 13.9,13.7 16.7,13.7 14.5,15.4 15.3,18.1 13,16.5 10.7,18.1 11.5,15.4 9.3,13.7 12.1,13.7"/>
+          <polygon points="25,11 25.9,13.7 28.7,13.7 26.5,15.4 27.3,18.1 25,16.5 22.7,18.1 23.5,15.4 21.3,13.7 24.1,13.7"/>
+          <polygon points="37,11 37.9,13.7 40.7,13.7 38.5,15.4 39.3,18.1 37,16.5 34.7,18.1 35.5,15.4 33.3,13.7 36.1,13.7"/>
+          <polygon points="49,11 49.9,13.7 52.7,13.7 50.5,15.4 51.3,18.1 49,16.5 46.7,18.1 47.5,15.4 45.3,13.7 48.1,13.7"/>
+          <polygon points="61,11 61.9,13.7 64.7,13.7 62.5,15.4 63.3,18.1 61,16.5 58.7,18.1 59.5,15.4 57.3,13.7 60.1,13.7"/>
+          <!-- Row 3 (6 stars) -->
+          <polygon points="7,17 7.9,19.7 10.7,19.7 8.5,21.4 9.3,24.1 7,22.5 4.7,24.1 5.5,21.4 3.3,19.7 6.1,19.7"/>
+          <polygon points="19,17 19.9,19.7 22.7,19.7 20.5,21.4 21.3,24.1 19,22.5 16.7,24.1 17.5,21.4 15.3,19.7 18.1,19.7"/>
+          <polygon points="31,17 31.9,19.7 34.7,19.7 32.5,21.4 33.3,24.1 31,22.5 28.7,24.1 29.5,21.4 27.3,19.7 30.1,19.7"/>
+          <polygon points="43,17 43.9,19.7 46.7,19.7 44.5,21.4 45.3,24.1 43,22.5 40.7,24.1 41.5,21.4 39.3,19.7 42.1,19.7"/>
+          <polygon points="55,17 55.9,19.7 58.7,19.7 56.5,21.4 57.3,24.1 55,22.5 52.7,24.1 53.5,21.4 51.3,19.7 54.1,19.7"/>
+          <polygon points="67,17 67.9,19.7 70.7,19.7 68.5,21.4 69.3,24.1 67,22.5 64.7,24.1 65.5,21.4 63.3,19.7 66.1,19.7"/>
+          <!-- Row 4 (5 stars, offset) -->
+          <polygon points="13,23 13.9,25.7 16.7,25.7 14.5,27.4 15.3,30.1 13,28.5 10.7,30.1 11.5,27.4 9.3,25.7 12.1,25.7"/>
+          <polygon points="25,23 25.9,25.7 28.7,25.7 26.5,27.4 27.3,30.1 25,28.5 22.7,30.1 23.5,27.4 21.3,25.7 24.1,25.7"/>
+          <polygon points="37,23 37.9,25.7 40.7,25.7 38.5,27.4 39.3,30.1 37,28.5 34.7,30.1 35.5,27.4 33.3,25.7 36.1,25.7"/>
+          <polygon points="49,23 49.9,25.7 52.7,25.7 50.5,27.4 51.3,30.1 49,28.5 46.7,30.1 47.5,27.4 45.3,25.7 48.1,25.7"/>
+          <polygon points="61,23 61.9,25.7 64.7,25.7 62.5,27.4 63.3,30.1 61,28.5 58.7,30.1 59.5,27.4 57.3,25.7 60.1,25.7"/>
+          <!-- Row 5 (6 stars) -->
+          <polygon points="7,29 7.9,31.7 10.7,31.7 8.5,33.4 9.3,36.1 7,34.5 4.7,36.1 5.5,33.4 3.3,31.7 6.1,31.7"/>
+          <polygon points="19,29 19.9,31.7 22.7,31.7 20.5,33.4 21.3,36.1 19,34.5 16.7,36.1 17.5,33.4 15.3,31.7 18.1,31.7"/>
+          <polygon points="31,29 31.9,31.7 34.7,31.7 32.5,33.4 33.3,36.1 31,34.5 28.7,36.1 29.5,33.4 27.3,31.7 30.1,31.7"/>
+          <polygon points="43,29 43.9,31.7 46.7,31.7 44.5,33.4 45.3,36.1 43,34.5 40.7,36.1 41.5,33.4 39.3,31.7 42.1,31.7"/>
+          <polygon points="55,29 55.9,31.7 58.7,31.7 56.5,33.4 57.3,36.1 55,34.5 52.7,36.1 53.5,33.4 51.3,31.7 54.1,31.7"/>
+          <polygon points="67,29 67.9,31.7 70.7,31.7 68.5,33.4 69.3,36.1 67,34.5 64.7,36.1 65.5,33.4 63.3,31.7 66.1,31.7"/>
+          <!-- Row 6 (5 stars, offset) -->
+          <polygon points="13,35 13.9,37.7 16.7,37.7 14.5,39.4 15.3,42.1 13,40.5 10.7,42.1 11.5,39.4 9.3,37.7 12.1,37.7"/>
+          <polygon points="25,35 25.9,37.7 28.7,37.7 26.5,39.4 27.3,42.1 25,40.5 22.7,42.1 23.5,39.4 21.3,37.7 24.1,37.7"/>
+          <polygon points="37,35 37.9,37.7 40.7,37.7 38.5,39.4 39.3,42.1 37,40.5 34.7,42.1 35.5,39.4 33.3,37.7 36.1,37.7"/>
+          <polygon points="49,35 49.9,37.7 52.7,37.7 50.5,39.4 51.3,42.1 49,40.5 46.7,42.1 47.5,39.4 45.3,37.7 48.1,37.7"/>
+          <polygon points="61,35 61.9,37.7 64.7,37.7 62.5,39.4 63.3,42.1 61,40.5 58.7,42.1 59.5,39.4 57.3,37.7 60.1,37.7"/>
+          <!-- Row 7 (6 stars) -->
+          <polygon points="7,41 7.9,43.7 10.7,43.7 8.5,45.4 9.3,48.1 7,46.5 4.7,48.1 5.5,45.4 3.3,43.7 6.1,43.7"/>
+          <polygon points="19,41 19.9,43.7 22.7,43.7 20.5,45.4 21.3,48.1 19,46.5 16.7,48.1 17.5,45.4 15.3,43.7 18.1,43.7"/>
+          <polygon points="31,41 31.9,43.7 34.7,43.7 32.5,45.4 33.3,48.1 31,46.5 28.7,48.1 29.5,45.4 27.3,43.7 30.1,43.7"/>
+          <polygon points="43,41 43.9,43.7 46.7,43.7 44.5,45.4 45.3,48.1 43,46.5 40.7,48.1 41.5,45.4 39.3,43.7 42.1,43.7"/>
+          <polygon points="55,41 55.9,43.7 58.7,43.7 56.5,45.4 57.3,48.1 55,46.5 52.7,48.1 53.5,45.4 51.3,43.7 54.1,43.7"/>
+          <polygon points="67,41 67.9,43.7 70.7,43.7 68.5,45.4 69.3,48.1 67,46.5 64.7,48.1 65.5,45.4 63.3,43.7 66.1,43.7"/>
+          <!-- Row 8 (5 stars, offset) -->
+          <polygon points="13,47 13.9,49.7 16.7,49.7 14.5,51.4 15.3,54.1 13,52.5 10.7,54.1 11.5,51.4 9.3,49.7 12.1,49.7"/>
+          <polygon points="25,47 25.9,49.7 28.7,49.7 26.5,51.4 27.3,54.1 25,52.5 22.7,54.1 23.5,51.4 21.3,49.7 24.1,49.7"/>
+          <polygon points="37,47 37.9,49.7 40.7,49.7 38.5,51.4 39.3,54.1 37,52.5 34.7,54.1 35.5,51.4 33.3,49.7 36.1,49.7"/>
+          <polygon points="49,47 49.9,49.7 52.7,49.7 50.5,51.4 51.3,54.1 49,52.5 46.7,54.1 47.5,51.4 45.3,49.7 48.1,49.7"/>
+          <polygon points="61,47 61.9,49.7 64.7,49.7 62.5,51.4 63.3,54.1 61,52.5 58.7,54.1 59.5,51.4 57.3,49.7 60.1,49.7"/>
+        </g>
+      </svg></div>
+      <div class="region-card-content">
+        <div class="region-card-flag">🇺🇸</div>
+        <div class="region-card-name">United States</div>
+        <span class="region-card-pill">USD</span>
+      </div>
     </div>
+
     <div class="region-card">
-      <div class="region-card-flag">🇬🇧</div>
-      <div class="region-card-name">United Kingdom</div>
-      <span class="region-card-pill">GBP</span>
+      <!-- UK Flag: blue bg, white/red crosses -->
+      <div class="region-card-flag-bg"><svg viewBox="0 0 190 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="190" height="100" fill="#012169"/>
+        <line x1="0" y1="0" x2="190" y2="100" stroke="#fff" stroke-width="20"/>
+        <line x1="190" y1="0" x2="0" y2="100" stroke="#fff" stroke-width="20"/>
+        <line x1="0" y1="0" x2="190" y2="100" stroke="#C8102E" stroke-width="12"/>
+        <line x1="190" y1="0" x2="0" y2="100" stroke="#C8102E" stroke-width="12"/>
+        <rect x="0" y="40" width="190" height="20" fill="#fff"/>
+        <rect x="80" y="0" width="30" height="100" fill="#fff"/>
+        <rect x="0" y="43" width="190" height="14" fill="#C8102E"/>
+        <rect x="84" y="0" width="22" height="100" fill="#C8102E"/>
+      </svg></div>
+      <div class="region-card-content">
+        <div class="region-card-flag">🇬🇧</div>
+        <div class="region-card-name">United Kingdom</div>
+        <span class="region-card-pill">GBP</span>
+      </div>
     </div>
+
     <div class="region-card">
-      <div class="region-card-flag">🇦🇺</div>
-      <div class="region-card-name">Australia</div>
-      <span class="region-card-pill">AUD</span>
+      <!-- Australia Flag: blue bg, union jack, commonwealth star, southern cross -->
+      <div class="region-card-flag-bg"><svg viewBox="0 0 190 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="190" height="100" fill="#00008B"/>
+        <!-- Union Jack in canton -->
+        <line x1="0" y1="0" x2="95" y2="50" stroke="#fff" stroke-width="10"/>
+        <line x1="95" y1="0" x2="0" y2="50" stroke="#fff" stroke-width="10"/>
+        <line x1="0" y1="0" x2="95" y2="50" stroke="#C8102E" stroke-width="6"/>
+        <line x1="95" y1="0" x2="0" y2="50" stroke="#C8102E" stroke-width="6"/>
+        <rect x="0" y="20" width="95" height="10" fill="#fff"/>
+        <rect x="42" y="0" width="11" height="50" fill="#fff"/>
+        <rect x="0" y="22" width="95" height="6" fill="#C8102E"/>
+        <rect x="44" y="0" width="7" height="50" fill="#C8102E"/>
+        <!-- Southern Cross stars -->
+        <polygon points="145,21 146.2,24.6 150,24.6 147,26.8 148.1,30.4 145,28.2 141.9,30.4 143,26.8 140,24.6 143.8,24.6" fill="#fff"/>
+        <polygon points="165,36 166.2,39.6 170,39.6 167,41.8 168.1,45.4 165,43.2 161.9,45.4 163,41.8 160,39.6 163.8,39.6" fill="#fff"/>
+        <polygon points="155,56 156.2,59.6 160,59.6 157,61.8 158.1,65.4 155,63.2 151.9,65.4 153,61.8 150,59.6 153.8,59.6" fill="#fff"/>
+        <polygon points="130,51 131.2,54.6 135,54.6 132,56.8 133.1,60.4 130,58.2 126.9,60.4 128,56.8 125,54.6 128.8,54.6" fill="#fff"/>
+        <!-- Small 4-point star (epsilon Crucis) -->
+        <polygon points="175,17 175.9,19.7 178.8,19.7 176.5,21.4 177.4,24.1 175,22.5 172.6,24.1 173.5,21.4 171.2,19.7 174.1,19.7" fill="#fff"/>
+        <!-- Commonwealth star (7-point) -->
+        <polygon points="40,67 41,70 44.1,70 41.6,71.9 42.6,75 40,73.1 37.4,75 38.4,71.9 35.9,70 39,70" fill="#fff"/>
+      </svg></div>
+      <div class="region-card-content">
+        <div class="region-card-flag">🇦🇺</div>
+        <div class="region-card-name">Australia</div>
+        <span class="region-card-pill">AUD</span>
+      </div>
     </div>
+
     <div class="region-card">
-      <div class="region-card-flag">🇨🇦</div>
-      <div class="region-card-name">Canada</div>
-      <span class="region-card-pill">CAD</span>
+      <!-- Canada Flag: red-white-red with official maple leaf -->
+      <div class="region-card-flag-bg"><svg viewBox="0 0 190 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="190" height="100" fill="#fff"/>
+        <rect width="47.5" height="100" fill="#FF0000"/>
+        <rect x="142.5" width="47.5" height="100" fill="#FF0000"/>
+        <!-- Official maple leaf path, centred in white band -->
+        <g transform="translate(95,48) scale(0.0115)">
+          <path fill="#FF0000" d="m-90 2030 45-863a95 95 0 0 0-111-98l-859 151 116-320a65 65 0 0 0-20-73l-941-762 212-99a65 65 0 0 0 34-79l-186-572 542 115a65 65 0 0 0 73-38l105-247 423 454a65 65 0 0 0 111-57l-204-1052 327 189a65 65 0 0 0 91-27l332-652 332 652a65 65 0 0 0 91 27l327-189-204 1052a65 65 0 0 0 111 57l423-454 105 247a65 65 0 0 0 73 38l542-115-186 572a65 65 0 0 0 34 79l212 99-941 762a65 65 0 0 0-20 73l116 320-859-151a95 95 0 0 0-111 98l45 863z"/>
+        </g>
+      </svg></div>
+      <div class="region-card-content">
+        <div class="region-card-flag">🇨🇦</div>
+        <div class="region-card-name">Canada</div>
+        <span class="region-card-pill">CAD</span>
+      </div>
     </div>
+
     <div class="region-card">
-      <div class="region-card-flag">🇪🇺</div>
-      <div class="region-card-name">Europe</div>
-      <span class="region-card-pill">EUR</span>
+      <!-- EU Flag: blue with gold stars circle -->
+      <div class="region-card-flag-bg"><svg viewBox="0 0 190 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="190" height="100" fill="#003399"/>
+        <!-- 12 stars in a circle -->
+        <g fill="#FFCC00">
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(0,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(30,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(60,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(90,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(120,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(150,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(180,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(210,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(240,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(270,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(300,95,50)"/>
+          <polygon points="95,22 96.5,27 101,27 97.5,29.5 99,34 95,31.5 91,34 92.5,29.5 89,27 93.5,27" transform="rotate(330,95,50)"/>
+        </g>
+      </svg></div>
+      <div class="region-card-content">
+        <div class="region-card-flag">🇪🇺</div>
+        <div class="region-card-name">Europe</div>
+        <span class="region-card-pill">EUR</span>
+      </div>
     </div>
+
   </div>
 </div>
 
-<!-- DIVIDER -->
 <div class="section-divider"><hr></div>
 
 <!-- PRICING -->
@@ -452,13 +621,13 @@
   <div class="pricing-inner">
     <p class="section-label">Pricing</p>
     <div class="section-title">START FREE.<br><span>UPGRADE WHEN READY.</span></div>
-    <p class="section-sub">Join the community for free, or go Pro to unlock priority access and instant alerts across all four regions the moment a deal is found.</p>
+    <p class="section-sub">Join the community for free, or go Pro to unlock priority access and instant alerts across all five regions the moment a deal is found.</p>
     <div class="pricing-grid">
 
       <div class="plan-card free">
         <div class="plan-badge">Free</div>
         <div class="plan-name">Explorer</div>
-        <p class="plan-desc">Join the PokeScout Discord server and get access to the community plus deal alerts across all four regions — no payment needed, ever.</p>
+        <p class="plan-desc">Join the PokeScout Discord server and get access to the community plus deal alerts across all five regions — no payment needed, ever.</p>
         <div class="plan-price-row"><span class="plan-amount" style="font-size:46px;">$0</span></div>
         <div class="plan-tagline">No card needed · join instantly</div>
         <div class="plan-divider"></div>
@@ -479,7 +648,7 @@
         <div class="plan-accent"></div>
         <div class="plan-badge"><span class="plan-badge-dot"></span>Pro Plan</div>
         <div class="plan-name">Scout Every Deal</div>
-        <p class="plan-desc">Real-time alerts the instant a deal is found, priority access across all four regions, and early access to the personal item tracker when it launches.</p>
+        <p class="plan-desc">Real-time alerts the instant a deal is found, priority access across all five regions, and early access to the personal item tracker when it launches.</p>
         <div class="plan-price-row">
           <span class="plan-currency">$</span>
           <span class="plan-amount">4.99</span>
@@ -528,7 +697,7 @@
   <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:48px;">
     <div>
       <div class="section-title">GOT<br><span>QUESTIONS?</span></div>
-      <p class="section-sub" style="margin-top:12px;">Browse the most common queries below before reaching out to support.</p>
+      <p class="section-sub" style="margin-top:12px;">Browse the most common queries below or join the Discord for help.</p>
     </div>
     <button onclick="openFaq()" style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,208,0,0.1); border:1px solid rgba(255,208,0,0.3); color:var(--yellow); font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700; padding:11px 22px; border-radius:50px; cursor:pointer; transition:background 0.2s, transform 0.15s; white-space:nowrap; flex-shrink:0;"
       onmouseover="this.style.background='rgba(255,208,0,0.18)'; this.style.transform='translateY(-2px)'"
@@ -544,21 +713,21 @@
         <span>Billing or subscription issue</span>
         <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#FFD000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="faq-preview-a">Billing is handled entirely through Whop. To update your payment method, cancel, or manage your subscription, visit your Whop dashboard at whop.com/my-memberships. If you've been charged incorrectly or are having trouble accessing your account after payment, contact us via the support form and include your Whop order ID.</div>
+      <div class="faq-preview-a">Billing is handled entirely through Whop. To update your payment method, cancel, or manage your subscription, visit your Whop dashboard at whop.com/my-memberships. If you've been charged incorrectly or are having trouble accessing your account after payment, reach out on Discord with your Whop order ID.</div>
     </div>
     <div class="faq-preview-item" onclick="toggleFaqPreview(this)">
       <div class="faq-preview-q">
         <span>Can't access my Pro membership</span>
         <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#FFD000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="faq-preview-a">First, make sure your Whop payment went through — check your Whop dashboard for your membership status. If the payment is confirmed but you still can't access the Pro Discord channels, try disconnecting and reconnecting your Discord account in your Whop settings. If the issue persists after 10 minutes, reach out via the support form.</div>
+      <div class="faq-preview-a">First, make sure your Whop payment went through — check your Whop dashboard for your membership status. If the payment is confirmed but you still can't access the Pro Discord channels, try disconnecting and reconnecting your Discord account in your Whop settings. If the issue persists after 10 minutes, reach out in the Discord support channel.</div>
     </div>
     <div class="faq-preview-item" onclick="toggleFaqPreview(this)">
       <div class="faq-preview-q">
         <span>Alert or bot issue</span>
         <svg class="faq-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#FFD000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <div class="faq-preview-a">If alerts have stopped or the bot appears offline, check the #status channel in the PokeScout Discord for any known outages. Also check your Discord notification settings — make sure the Pro alert channels aren't muted. If the bot is online but you're not receiving alerts you expect, use the support form to let us know and we'll investigate.</div>
+      <div class="faq-preview-a">If alerts have stopped or the bot appears offline, check the #status channel in the PokeScout Discord for any known outages. Also check your Discord notification settings — make sure the Pro alert channels aren't muted. If the bot is online but you're not receiving alerts you expect, let us know in the Discord support channel and we'll investigate.</div>
     </div>
   </div>
 </div>
@@ -584,7 +753,6 @@
   </div>
   <div class="footer-copy">© 2026 PokeScout. Not affiliated with The Pokémon Company or eBay.</div>
   <div class="footer-links">
-    <a href="#" onclick="openSupport(); return false;">Support</a>
     <a href="https://discord.gg/" target="_blank">Discord</a>
   </div>
 </footer>
@@ -593,94 +761,8 @@
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 12V4M4 8l4-4 4 4" stroke="#0D1117" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </button>
 
-<!-- SUPPORT OVERLAY -->
-<div id="supportOverlay" style="display:none; position:fixed; inset:0; z-index:1000; align-items:center; justify-content:center; padding:20px;">
-  <div id="supportBackdrop" onclick="closeSupport()" style="position:absolute; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px);"></div>
-  <div id="supportModal" style="position:relative; z-index:1; background:#131923; border:1px solid rgba(255,208,0,0.2); border-radius:20px; padding:40px 36px; width:100%; max-width:580px; max-height:90vh; overflow-y:auto; animation:modalIn 0.25s ease both;">
-    <!-- Close button -->
-    <button onclick="closeSupport()" style="position:absolute; top:18px; right:18px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:50%; width:34px; height:34px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.13)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="#cdd9e5" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-
-    <!-- Header -->
-    <p style="font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#FFD000; margin-bottom:8px;">Support</p>
-    <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,6vw,52px); line-height:0.95; letter-spacing:1px; color:#fff; margin-bottom:12px;">GET IN<br><span style="color:#FFD000;">TOUCH.</span></h2>
-    <p style="font-size:14px; color:#7a8a9a; line-height:1.8; margin-bottom:32px;">Have a question, issue, or just want to say something? Fill in the form below and we'll get back to you as soon as possible.</p>
-
-    <!-- Form -->
-    <div id="supportFormArea">
-      <div id="supportErrorBanner" style="display:none; background:rgba(255,80,80,0.1); border:1px solid rgba(255,80,80,0.25); border-radius:10px; padding:12px 16px; font-size:13px; color:#ff8080; margin-bottom:18px;"></div>
-
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px;">
-        <div>
-          <label style="display:block; font-size:13px; font-weight:600; color:#cdd9e5; margin-bottom:7px;">Full Name <span style="color:#FFD000;">*</span></label>
-          <input id="sFullName" type="text" placeholder="John Smith" autocomplete="name"
-            style="width:100%; background:#1a2332; border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px 14px; font-family:'DM Sans',sans-serif; font-size:14px; color:#fff; outline:none; transition:border-color 0.2s, box-shadow 0.2s;"
-            onfocus="this.style.borderColor='rgba(255,208,0,0.5)'; this.style.boxShadow='0 0 0 3px rgba(255,208,0,0.08)'"
-            onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'" />
-        </div>
-        <div>
-          <label style="display:block; font-size:13px; font-weight:600; color:#cdd9e5; margin-bottom:7px;">Email Address <span style="color:#FFD000;">*</span></label>
-          <input id="sEmail" type="email" placeholder="you@example.com" autocomplete="email"
-            style="width:100%; background:#1a2332; border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px 14px; font-family:'DM Sans',sans-serif; font-size:14px; color:#fff; outline:none; transition:border-color 0.2s, box-shadow 0.2s;"
-            onfocus="this.style.borderColor='rgba(255,208,0,0.5)'; this.style.boxShadow='0 0 0 3px rgba(255,208,0,0.08)'"
-            onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'" />
-        </div>
-      </div>
-
-      <div style="margin-bottom:18px; position:relative;">
-        <label style="display:block; font-size:13px; font-weight:600; color:#cdd9e5; margin-bottom:7px;">Reason for Contact <span style="color:#FFD000;">*</span></label>
-        <div style="position:relative;">
-          <select id="sReason"
-            style="width:100%; background:#1a2332; border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px 40px 12px 14px; font-family:'DM Sans',sans-serif; font-size:14px; color:#fff; outline:none; appearance:none; -webkit-appearance:none; cursor:pointer; transition:border-color 0.2s, box-shadow 0.2s;"
-            onfocus="this.style.borderColor='rgba(255,208,0,0.5)'; this.style.boxShadow='0 0 0 3px rgba(255,208,0,0.08)'"
-            onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'">
-            <option value="" disabled selected style="background:#1a2332;">Select a reason…</option>
-            <option value="billing" style="background:#1a2332;">Billing or subscription issue</option>
-            <option value="access" style="background:#1a2332;">Can't access my Pro membership</option>
-            <option value="alerts" style="background:#1a2332;">Alert or bot issue</option>
-            <option value="discord" style="background:#1a2332;">Discord server issue</option>
-            <option value="feedback" style="background:#1a2332;">Feedback or feature request</option>
-            <option value="other" style="background:#1a2332;">Other</option>
-          </select>
-          <div style="position:absolute; right:14px; top:50%; transform:translateY(-50%); pointer-events:none; border:5px solid transparent; border-top-color:#7a8a9a; margin-top:3px;"></div>
-        </div>
-      </div>
-
-      <div style="margin-bottom:26px;">
-        <label style="display:block; font-size:13px; font-weight:600; color:#cdd9e5; margin-bottom:7px;">Message <span style="color:#FFD000;">*</span></label>
-        <textarea id="sMessage" placeholder="Tell us what's going on — the more detail, the better."
-          style="width:100%; background:#1a2332; border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:12px 14px; font-family:'DM Sans',sans-serif; font-size:14px; color:#fff; outline:none; resize:vertical; min-height:120px; line-height:1.7; transition:border-color 0.2s, box-shadow 0.2s;"
-          onfocus="this.style.borderColor='rgba(255,208,0,0.5)'; this.style.boxShadow='0 0 0 3px rgba(255,208,0,0.08)'"
-          onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'"></textarea>
-      </div>
-
-      <div style="height:1px; background:rgba(255,255,255,0.07); margin-bottom:24px;"></div>
-
-      <button id="sSendBtn" onclick="handleSupportSubmit()"
-        style="width:100%; background:#FFD000; color:#0D1117; border:none; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; padding:15px; border-radius:12px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:9px; transition:background 0.2s, transform 0.15s;"
-        onmouseover="this.style.background='#e6bc00'; this.style.transform='translateY(-2px)'"
-        onmouseout="this.style.background='#FFD000'; this.style.transform='translateY(0)'">
-        Send Message
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 8L4 3l4 5-4 5 10-5z" fill="#0D1117" opacity="0.7"/><path d="M8 8H2" stroke="#0D1117" stroke-width="1.4" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-
-    <!-- Success state -->
-    <div id="supportSuccess" style="display:none; text-align:center; padding:30px 10px;">
-      <div style="width:60px; height:60px; background:rgba(255,208,0,0.1); border:1px solid rgba(255,208,0,0.3); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
-        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M5 13l6 6 10-10" stroke="#FFD000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h3 style="font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:1px; color:#fff; margin-bottom:10px;">Message Sent!</h3>
-      <p style="font-size:14px; color:#7a8a9a; line-height:1.8;">Thanks for reaching out. We've received your message and will reply to your email address as soon as possible.</p>
-    </div>
-  </div>
-</div>
-
 <style>
   @keyframes modalIn { from { opacity:0; transform:translateY(20px) scale(0.97); } to { opacity:1; transform:translateY(0) scale(1); } }
-  #supportOverlay { scrollbar-width: thin; }
-  #supportModal input::placeholder, #supportModal textarea::placeholder { color: #7a8a9a; }
 </style>
 
 <!-- FAQ OVERLAY -->
@@ -694,38 +776,38 @@
 
     <p style="font-size:11px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#FFD000; margin-bottom:8px;">FAQ</p>
     <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,6vw,52px); line-height:0.95; letter-spacing:1px; color:#fff; margin-bottom:12px;">COMMON<br><span style="color:#FFD000;">QUESTIONS.</span></h2>
-    <p style="font-size:14px; color:#7a8a9a; line-height:1.8; margin-bottom:32px;">Find answers to the most common queries below. If your issue isn't covered, use the support form to get in touch.</p>
+    <p style="font-size:14px; color:#7a8a9a; line-height:1.8; margin-bottom:32px;">Find answers to the most common queries below. For anything else, reach out on Discord.</p>
 
     <div style="display:flex; flex-direction:column; gap:10px;">
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q"><span>Billing or subscription issue</span><svg class="faq-c" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#FFD000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="faq-a">Billing is handled entirely through Whop. To update your payment method, cancel, or manage your subscription, visit your Whop dashboard at <strong style="color:#cdd9e5;">whop.com/my-memberships</strong>. If you've been charged incorrectly or can't access your account after payment, please contact us via the support form with your Whop order ID and we'll sort it out promptly.</div>
+        <div class="faq-a">Billing is handled entirely through Whop. To update your payment method, cancel, or manage your subscription, visit your Whop dashboard at <strong style="color:#cdd9e5;">whop.com/my-memberships</strong>. If you've been charged incorrectly or can't access your account after payment, please reach out on Discord with your Whop order ID and we'll sort it out promptly.</div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q"><span>Can't access my Pro membership</span><svg class="faq-c" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#FFD000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="faq-a">First, confirm your payment went through in your Whop dashboard. If it's confirmed, try disconnecting and reconnecting your Discord account in Whop settings — this usually fixes role syncing issues. Make sure you're in the correct PokeScout Discord server and that your account isn't restricted. If nothing works after 10 minutes, submit a support request and we'll manually verify your access.</div>
+        <div class="faq-a">First, confirm your payment went through in your Whop dashboard. If it's confirmed, try disconnecting and reconnecting your Discord account in Whop settings — this usually fixes role syncing issues. Make sure you're in the correct PokeScout Discord server and that your account isn't restricted. If nothing works after 10 minutes, reach out in the Discord support channel and we'll manually verify your access.</div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q"><span>Alert or bot issue</span><svg class="faq-c" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#FFD000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="faq-a">Check the <strong style="color:#cdd9e5;">#status</strong> channel in the PokeScout Discord for any known outages or maintenance. Next, check your Discord notification settings — make sure Pro alert channels aren't muted or suppressed. If the bot is showing as online but you're still not receiving alerts, let us know via the support form and we'll investigate your specific account.</div>
+        <div class="faq-a">Check the <strong style="color:#cdd9e5;">#status</strong> channel in the PokeScout Discord for any known outages or maintenance. Next, check your Discord notification settings — make sure Pro alert channels aren't muted or suppressed. If the bot is showing as online but you're still not receiving alerts, let us know in Discord and we'll investigate your specific account.</div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q"><span>Discord server issue</span><svg class="faq-c" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#FFD000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="faq-a">If you can't find the server, use the invite link on this page to join. If you've been removed or can't see certain channels, ensure your Whop membership is still active — roles are automatically removed if a subscription lapses. For server-specific issues like missing channels or permissions errors, send us a message via support and describe exactly what you're seeing.</div>
+        <div class="faq-a">If you can't find the server, use the invite link on this page to join. If you've been removed or can't see certain channels, ensure your Whop membership is still active — roles are automatically removed if a subscription lapses. For server-specific issues like missing channels or permissions errors, post in the Discord support channel and describe exactly what you're seeing.</div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q"><span>Feedback or feature request</span><svg class="faq-c" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#FFD000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="faq-a">We love hearing from the community. You can post suggestions directly in the <strong style="color:#cdd9e5;">#feedback</strong> channel on Discord where other members can upvote ideas, or use the support form to send us a detailed feature request privately. We review all feedback regularly — things like the upcoming personal item tracker were shaped by community input.</div>
+        <div class="faq-a">We love hearing from the community. You can post suggestions directly in the <strong style="color:#cdd9e5;">#feedback</strong> channel on Discord where other members can upvote ideas. We review all feedback regularly — things like the upcoming personal item tracker were shaped by community input.</div>
       </div>
 
       <div class="faq-item" onclick="toggleFaq(this)">
         <div class="faq-q"><span>Other</span><svg class="faq-c" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#FFD000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="faq-a">Didn't find what you were looking for? No problem — use the support form to describe your query and we'll get back to you as soon as possible. Whether it's a technical issue, a question about how PokeScout works, or anything else, we're happy to help.</div>
+        <div class="faq-a">Didn't find what you were looking for? No problem — head over to the Discord server and post in the support channel. Whether it's a technical issue, a question about how PokeScout works, or anything else, we're happy to help.</div>
       </div>
 
     </div>
@@ -745,25 +827,6 @@
 </style>
 
 <script>
-  function openSupport() {
-    var overlay = document.getElementById('supportOverlay');
-    overlay.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    // Reset form state
-    document.getElementById('supportFormArea').style.display = 'block';
-    document.getElementById('supportSuccess').style.display = 'none';
-    document.getElementById('supportErrorBanner').style.display = 'none';
-    document.getElementById('sFullName').value = '';
-    document.getElementById('sEmail').value = '';
-    document.getElementById('sReason').value = '';
-    document.getElementById('sMessage').value = '';
-  }
-
-  function closeSupport() {
-    document.getElementById('supportOverlay').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-
   function openFaq() {
     document.getElementById('faqOverlay').style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -783,54 +846,8 @@
     if (!isOpen) el.classList.add('open');
   }
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') { closeSupport(); closeFaq(); }
+    if (e.key === 'Escape') { closeFaq(); }
   });
-
-  function handleSupportSubmit() {
-    var fullName = document.getElementById('sFullName').value.trim();
-    var email = document.getElementById('sEmail').value.trim();
-    var reason = document.getElementById('sReason').value;
-    var message = document.getElementById('sMessage').value.trim();
-    var errorBanner = document.getElementById('supportErrorBanner');
-    var sendBtn = document.getElementById('sSendBtn');
-
-    if (!fullName || !email || !reason || !message) {
-      errorBanner.textContent = 'Please fill in all required fields.';
-      errorBanner.style.display = 'block';
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errorBanner.textContent = 'Please enter a valid email address.';
-      errorBanner.style.display = 'block';
-      return;
-    }
-    errorBanner.style.display = 'none';
-
-    var TO = ''; // <-- paste support email address here
-    var reasonLabels = {
-      billing: 'Billing or subscription issue',
-      access: "Can't access my Pro membership",
-      alerts: 'Alert or bot issue',
-      discord: 'Discord server issue',
-      feedback: 'Feedback or feature request',
-      other: 'Other'
-    };
-    var subject = encodeURIComponent('[PokeScout Support] ' + reasonLabels[reason]);
-    var body = encodeURIComponent(
-      'Name: ' + fullName + '\n' +
-      'Email: ' + email + '\n' +
-      'Reason: ' + reasonLabels[reason] + '\n\n' +
-      'Message:\n' + message
-    );
-
-    window.location.href = 'mailto:' + TO + '?subject=' + subject + '&body=' + body;
-
-    sendBtn.disabled = true;
-    setTimeout(function() {
-      document.getElementById('supportFormArea').style.display = 'none';
-      document.getElementById('supportSuccess').style.display = 'block';
-    }, 600);
-  }
 </script>
 
 <script>
