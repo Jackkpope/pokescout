@@ -166,12 +166,12 @@
         mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
       }
       .regions-grid {
-        display: flex; gap: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch;
-        width: max-content; margin-top: 0; padding-bottom: 0; scrollbar-width: none;
+        display: flex; gap: 14px; overflow: visible;
+        width: max-content; margin-top: 0; padding-bottom: 0;
         animation: marquee-scroll 18s linear infinite;
       }
       .regions-grid::-webkit-scrollbar { display: none; }
-      .regions-grid.paused { animation-play-state: paused; }
+      .regions-grid:hover { animation-play-state: paused; }
       .region-card { min-width: 70vw; flex-shrink: 0; }
       @keyframes marquee-scroll {
         0%   { transform: translateX(0); }
@@ -896,6 +896,7 @@
     function setup() {
       var grid = document.getElementById('regionsGrid');
       if (!grid) return;
+      // Remove any previously added clones
       var clones = grid.querySelectorAll('.region-card-clone');
       clones.forEach(function(c) { c.parentNode.removeChild(c); });
 
@@ -907,17 +908,6 @@
           clone.setAttribute('aria-hidden', 'true');
           grid.appendChild(clone);
         });
-
-        var resumeTimer;
-        grid.addEventListener('touchstart', function() {
-          clearTimeout(resumeTimer);
-          grid.classList.add('paused');
-        }, { passive: true });
-        grid.addEventListener('touchend', function() {
-          resumeTimer = setTimeout(function() {
-            grid.classList.remove('paused');
-          }, 2000);
-        }, { passive: true });
       }
     }
     setup();
